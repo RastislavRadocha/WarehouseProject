@@ -4,6 +4,7 @@ next to do:
 - before loading pallets onto location, create user input for asking which locations we want to load first,
  then ask how many pallets
 - First thing is to generate pallets and store them, then load them(not generate and load them at the same time)
+- Add check for not loading more pallets than was generated
 - create a function for creating the log file(excel) storing data inside(IDs, datetime) and then creating another
  function for retrieving those information for loading
 we want to generate, and then create a limit check for not adding more than the location limit is.

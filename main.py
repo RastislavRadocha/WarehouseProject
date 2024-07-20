@@ -25,30 +25,30 @@ custom_id = generate_custom_id()
 print(custom_id)
 
 
-def generate_pallets(num_pallets):
+def generate_pallets(pallets):
     """
     Generates a list of pallets with a given number of pallets.
 
     Args:
-        num_pallets (int): The number of pallets to generate.
+        pallets (int): The number of pallets to generate.
 
     Returns:
         list: A list of pallets.
     """
 
     # Initialize an empty list to store the generated pallets
-    pallets = []
+    generated_pallets = []
 
     # Generate the specified number of pallets
-    for _ in range(num_pallets):
+    for _ in range(pallets):
         # Generate a custom ID for each pallet
         pallet = generate_custom_id()
 
         # Append the generated pallet to the list of pallets
-        pallets.append(pallet)
+        generated_pallets.append(pallet)
 
     # Return the list of generated pallets
-    return pallets
+    return generated_pallets
 
 
 def main():
@@ -62,14 +62,25 @@ def main():
     for idx, pallet in enumerate(generated_pallets):
         print(f"{idx + 1}: {pallet}")
 
-    overflow1: Location = Location('Overflow1', 50)
-    overflow1.load_pallet(num_pallets)
-    overflow1_limit = overflow1.get_limit()
-    print(f"Current limit: {overflow1_limit}")
+    loading_input: int = int(input("How many pallets would you like to load?: "))
+    loaded_pallets = generated_pallets[:loading_input]
 
+
+    # The last argument `location=generated_pallets` is used to pass the generated pallets to the `Location` class
+    # as an initial value for the `location` attribute. This allows the `Location` class to have access to the
+    # generated pallets when it is initialized.
+    temporary_location: Location = Location('Temporary Location 1', 250, location=generated_pallets)
+
+    overflow1: Location = Location('Overflow1', 50, location=generated_pallets)
+
+    remaining_pallets = overflow1.load_pallet(pallets=loaded_pallets, limit_over=overflow1.limit)
+
+    temporary_location.load_pallet(pallets=remaining_pallets, limit_over=temporary_location.limit)
+
+    print(f"Temporary Location Pallets: {len(remaining_pallets)}")
+    print(f"Overflow1 Pallets: {len(overflow1.pallets)}")
 
 
 
 if __name__ == '__main__':
-    while True:
-        main()
+    main()
