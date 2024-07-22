@@ -3,10 +3,10 @@ class for locations and methods for loading and unloading.
 next to do:
 - before loading pallets onto location, create user input for asking which locations we want to load first,
  then ask how many pallets( create a TKinterface with buttons )
-- Create a pallet class
+✔️ Create a pallet class
 ✔️ First thing is to generate pallets and store them, then load them(not generate and load them at the same time)
 ✔️ Add check for not loading more pallets than was generated
-_ if i am generating 50 pallets but want to load only 40, i need a simple way of retrieving which pallets are loaded,
+✔️ if i am generating 50 pallets but want to load only 40, i need a simple way of retrieving which pallets are loaded,
 and which are in the not-loaded state(lets call it void)
 - create a function for creating the log file(excel) storing data inside(IDs, datetime) and then creating another
  function for retrieving those information for loading

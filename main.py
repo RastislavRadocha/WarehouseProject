@@ -1,10 +1,15 @@
 import random
 import string
+import openpyxl
+import pandas as pd
 import time
 import datetime
 import customtkinter as ctk
 from pallet import Pallet
 from locations import Location
+
+store_pallet: Pallet = Pallet('Testing_sheet')
+store_pallet.storing_pallet("generated_pallets.xlsx", pallets=[store_pallet])
 
 
 def generate_custom_id():
@@ -60,6 +65,8 @@ def main():
 
     # Generate pallets based on the user's input
     generated_pallets = generate_pallets(num_pallets)
+
+    store_pallet.storing_pallet('generated_pallets.xlsx', generated_pallets)
 
     # Iterate through the generated pallets and display them with an index starting from 1
     for idx, pallet in enumerate(generated_pallets):
