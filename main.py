@@ -2,6 +2,8 @@ import random
 import string
 import time
 import datetime
+import customtkinter as ctk
+from pallet import Pallet
 from locations import Location
 
 
@@ -42,7 +44,8 @@ def generate_pallets(pallets):
     # Generate the specified number of pallets
     for _ in range(pallets):
         # Generate a custom ID for each pallet
-        pallet = generate_custom_id()
+        pallet_id = generate_custom_id()
+        pallet = Pallet(pallet_id)
 
         # Append the generated pallet to the list of pallets
         generated_pallets.append(pallet)
@@ -60,11 +63,10 @@ def main():
 
     # Iterate through the generated pallets and display them with an index starting from 1
     for idx, pallet in enumerate(generated_pallets):
-        print(f"{idx + 1}: {pallet}")
+        print(f"{idx + 1}: {pallet.id}")
 
     loading_input: int = int(input("How many pallets would you like to load?: "))
     loaded_pallets = generated_pallets[:loading_input]
-
 
     # The last argument `location=generated_pallets` is used to pass the generated pallets to the `Location` class
     # as an initial value for the `location` attribute. This allows the `Location` class to have access to the
@@ -73,13 +75,14 @@ def main():
 
     overflow1: Location = Location('Overflow1', 50, location=generated_pallets)
 
-    remaining_pallets = overflow1.load_pallet(pallets=loaded_pallets, limit_over=overflow1.limit)
+    over_pallets = overflow1.load_pallet(pallets=loaded_pallets, limit_over=overflow1.limit)
+    remaining_pallets = generated_pallets[loading_input:]
 
-    temporary_location.load_pallet(pallets=remaining_pallets, limit_over=temporary_location.limit)
+    temporary_location.load_pallet(pallets=over_pallets, limit_over=temporary_location.limit)
 
-    print(f"Temporary Location Pallets: {len(remaining_pallets)}")
-    print(f"Overflow1 Pallets: {len(overflow1.pallets)}")
-
+    print(f"Temporary Location Pallets: {[p.id for p in temporary_location.pallets]}")
+    print(f"Overflow1 Pallets: {[p.id for p in overflow1.pallets]}")
+    print(f"Unloaded Pallets: {[p.id for p in remaining_pallets]}")
 
 
 if __name__ == '__main__':
