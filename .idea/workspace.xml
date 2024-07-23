@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2cc15cb5-9d78-4727-8fe9-3082180289ba" name="Changes" comment="Add locations.py main.py Notes&#10;Initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notes" beforeDir="false" afterPath="$PROJECT_DIR$/Notes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/generated_pallets.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/generated_pallets.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pallet.py" beforeDir="false" afterPath="$PROJECT_DIR$/pallet.py" afterDir="false" />
