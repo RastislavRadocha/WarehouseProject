@@ -8,8 +8,10 @@ import customtkinter as ctk
 from pallet import Pallet
 from locations import Location
 
+# Define and initialize a Pallet object with the name 'Testing_sheet'
+# Call the storing_pallet method on the store_pallet object
+# to store the pallet data in the Excel file 'generated_pallets.xlsx'
 store_pallet: Pallet = Pallet('Testing_sheet')
-store_pallet.storing_pallet("generated_pallets.xlsx", pallets=[store_pallet])
 
 
 def generate_custom_id():
@@ -66,7 +68,8 @@ def main():
     # Generate pallets based on the user's input
     generated_pallets = generate_pallets(num_pallets)
 
-    store_pallet.storing_pallet('generated_pallets.xlsx', generated_pallets)
+    store_pallet.storing_pallet("C:/Users/skill/PycharmProjects/WarehouseProject/generated_pallets.xlsx"
+                                , pallets=generated_pallets)
 
     # Iterate through the generated pallets and display them with an index starting from 1
     for idx, pallet in enumerate(generated_pallets):
