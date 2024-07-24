@@ -25,33 +25,30 @@ def generate_custom_id():
 
     random_chars = ''.join(random_letters + random_digits)
 
-    # Combine the random characters and timestamp to create a custom ID
-    return f"ID:{random_chars}, Pallet created:{timestamp}"
+    return f"ID:{random_chars}"
 
 
-custom_id = generate_custom_id()
 
-print(custom_id)
-
-
-def generate_pallets(pallets):
+def generate_pallets(pallets_id):
     """
     Generates a list of pallets with a given number of pallets.
 
     Args:
-        pallets (int): The number of pallets to generate.
+        pallets_id (int): The number of pallets to generate.
 
     Returns:
         list: A list of pallets.
+        :param pallets_id:
     """
 
     # Initialize an empty list to store the generated pallets
     generated_pallets = []
 
     # Generate the specified number of pallets
-    for _ in range(pallets):
+    for _ in range(pallets_id):
         # Generate a custom ID for each pallet
-        pallet_id = generate_custom_id()
+        id_value = generate_custom_id()
+        pallet_id = f"Pallet ID: {id_value}"
         pallet = Pallet(pallet_id)
 
         # Append the generated pallet to the list of pallets
@@ -68,8 +65,8 @@ def main():
     # Generate pallets based on the user's input
     generated_pallets = generate_pallets(num_pallets)
 
-    store_pallet.storing_pallet("C:/Users/skill/PycharmProjects/WarehouseProject/generated_pallets.xlsx"
-                                , pallets=generated_pallets)
+    store_pallet.storing_pallet(file_path='C:/Users/skill/PycharmProjects/WarehouseProject/generated_pallets.xlsx',
+                                pallets=generated_pallets, timestamp=datetime.datetime.now())
 
     # Iterate through the generated pallets and display them with an index starting from 1
     for idx, pallet in enumerate(generated_pallets):
