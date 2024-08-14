@@ -1,9 +1,10 @@
 class Location:
-    def __init__(self, name: str, limit: int, location: list = []) -> None:
+    def __init__(self, name: str, limit: int, location: list = []):
         self.name = name
         self.limit = limit
         self.pallets = []
         self.remaining_pallets = []
+        self.pallets_to_relocate = []
 
     def load_pallet(self, pallets, limit_over):
         self.limit - len(pallets)
@@ -19,8 +20,10 @@ class Location:
             print(f"Maximum capacity is {limit_over}")
         return self.remaining_pallets
 
-    def offload_pallet(self, pallets, next_location):
-        self.limit += len(pallets)
+    def relocate_pallet(self, next_location):
+
+        next_location.load_pallet(pallets=self.pallets_to_relocate, limit_over=next_location.limit)
+        print(f"{len(self.pallets_to_relocate)} pallets relocated from {self.name} to {next_location.name}")
 
     def get_limit(self):
         return self.limit

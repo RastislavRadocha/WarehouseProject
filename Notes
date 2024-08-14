@@ -10,15 +10,16 @@ next to do:
 and which are in the not-loaded state(lets call it void)
 ✔️ create a function for creating the log file(excel) storing data inside(IDs, datetime) and then creating another
  function for retrieving those information for loading
-- we want to generate, and then create a limit check for not adding more than the location limit is.
+✔️ we want to generate, and then create a limit check for not adding more than the location limit is.
 - before unloading pallets from location to a different location, first create user input to ask from which location
 we want to unload and ask how many pallets to unload(or create function based on the pallet id to unload), and when
 the location is empty, add a warning that location is empty.
 - create simple interface from TK interface with buttons, latter create visual representation of pallets, locations,
 reach trucks, EPTs in pygame or any other visual module
-- create a simple log with dates, times, and pallet ID (probably excel file for later data analysis)
+✔️ create a simple log with dates, times, and pallet ID (probably excel file for later data analysis)
 - create actual functionality for saving the IDs to the locations(not just repeat the same thing without saving)
-
+create a method for relocating pallets, first we need to take x pallets from certain location, then store it in
+a list, and then move that list to a different location
 
 # Mark when something is done ✔️
 print("Task completed: ✔️")

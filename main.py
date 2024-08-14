@@ -15,9 +15,6 @@ store_pallet: Pallet = Pallet('Testing_sheet')
 
 
 def generate_custom_id():
-    # Get the current date
-    timestamp = datetime.date.today()
-
     # Generate a random string of 10 characters using lowercase letters and digits
     # Instead of creating a random string of 10 characters, we are using 6 letters and 4 digits
     random_letters = random.choices(string.ascii_lowercase, k=6)
@@ -26,7 +23,6 @@ def generate_custom_id():
     random_chars = ''.join(random_letters + random_digits)
 
     return f"ID:{random_chars}"
-
 
 
 def generate_pallets(pallets_id):
@@ -58,12 +54,26 @@ def generate_pallets(pallets_id):
     return generated_pallets
 
 
+def store_generated_pallets(pallets):
+    timestamp = datetime.datetime.now()
+    file_path = 'C:/Users/skill/PycharmProjects/WarehouseProject/generated_pallets.xlsx'
+    store_pallet.storing_pallet(file_path, pallets, timestamp)
+
+
+def get_user_input(prompt, input_type=int):
+    while True:
+        try:
+            return input_type(input(prompt))
+        except ValueError:
+            print(f"Invalid input. Please enter a {input_type.__name__}.")
+
+
 def main():
     # Ask the user for the number of pallets to generate and convert it to an integer
     num_pallets: int = int(input("How many pallets you want to generate?: "))
 
     # Generate pallets based on the user's input
-    generated_pallets = generate_pallets(num_pallets)
+    generated_pallets: list = generate_pallets(num_pallets)
 
     store_pallet.storing_pallet(file_path='C:/Users/skill/PycharmProjects/WarehouseProject/generated_pallets.xlsx',
                                 pallets=generated_pallets, timestamp=datetime.datetime.now())
@@ -82,8 +92,12 @@ def main():
 
     overflow1: Location = Location('Overflow1', 50, location=generated_pallets)
 
+    overflow2: Location = Location('Overflow2', 50, location=generated_pallets)
+
     over_pallets = overflow1.load_pallet(pallets=loaded_pallets, limit_over=overflow1.limit)
     remaining_pallets = generated_pallets[loading_input:]
+
+    overflow1.relocate_pallet(next_location=overflow2)
 
     temporary_location.load_pallet(pallets=over_pallets, limit_over=temporary_location.limit)
 
