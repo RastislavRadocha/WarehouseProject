@@ -1,6 +1,8 @@
 import pandas as pd
 import os
 import openpyxl
+import string
+import random
 
 
 class Pallet:
@@ -42,5 +44,22 @@ class Pallet:
         with pd.ExcelWriter(file_path, engine='openpyxl', mode='r+', if_sheet_exists='replace') as writer:
             combined_df.to_excel(writer, sheet_name="Testing_sheet", index=False, header=True)
 
+    def generate_custom_id(self):
+        # Generate a random string of 10 characters using lowercase letters and digits
+        # Instead of creating a random string of 10 characters, we are using 6 letters and 4 digits
+        random_letters = random.choices(string.ascii_lowercase, k=6)
+        random_digits = random.choices(string.digits, k=4)
 
+        random_chars = ''.join(random_letters + random_digits)
 
+        return f"ID:{random_chars}"
+
+    def generating_pallets(self, pallets_id):
+        generated_pallets = []
+
+        for _ in range(pallets_id):
+            id_value = self.generate_custom_id()
+            pallet_id = f"Pallet ID: {id_value}"
+            generated_pallets.append(pallet_id)
+
+        return generated_pallets
