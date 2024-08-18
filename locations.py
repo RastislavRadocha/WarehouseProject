@@ -3,10 +3,10 @@ class Location:
         self.name = name
         self.limit = limit
         self.pallets = []
-        self.excess_pallets = [] # pallets exceeding the limit
+        self.excess_pallets = []  # pallets exceeding the limit
         self.pallets_for_relocation = []
 
-    def load_pallet(self, pallets:list , max_allowed: int) -> list:
+    def load_pallet(self, pallets: list, max_allowed: int) -> list:
         """Loads pallets into the location, respecting the limit and returning unloaded pallets.
 
             Args:
@@ -26,22 +26,23 @@ class Location:
         if unloaded_pallets:
             print(f"{len(unloaded_pallets)} pallets not loaded due to space limitations.")
 
+        return pallets_to_load, unloaded_pallets
+
+    def relocate_pallet(self, target_location):
+        print(f"Source location: {self.name}, Capacity: {self.limit}, Pallets: {len(self.pallets)}")
+        print(f"Target location: {target_location.name}, Capacity: {target_location.limit},"
+              f" Pallets: {len(target_location.pallets)}")
+        unloaded_pallets = []
+        available_space = target_location.limit - len(target_location.pallets)
+        pallets_to_move = self.pallets[:available_space]
+
+        target_location.pallets.extend(pallets_to_move)
+        self.pallets = self.pallets[available_space:]
+
+        print(f"Source location after relocation: {self.name}, Capacity: {self.limit}, Pallets: {len(self.pallets)}")
+        print(f"Target location after relocation: {target_location.name}, Capacity: {target_location.limit},"
+              f" Pallets: {len(target_location.pallets)}")
         return unloaded_pallets
-
-    def relocate_pallet(self, next_location):
-        try:
-            unloaded_pallets = next_location.load_pallet(self.pallets_for_relocation, next_location.limit)
-            if unloaded_pallets:
-                print(f"Warning: {len(unloaded_pallets)} pallets could not be relocated to {next_location.name}"
-                      f" due to space limitations.")
-            else:
-                print(f"{len(self.pallets_for_relocation)} pallets relocated from {self.name} to {next_location.name}")
-                self.pallets_for_relocation = []  # Clear the list after successful relocation
-
-        except Exception as e:
-            print(f"Error relocating pallets: {e}")
-
-
 
     def get_limit(self):
         return self.limit
